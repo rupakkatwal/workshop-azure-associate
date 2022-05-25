@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { MsalAuthenticationTemplate, useMsal } from "@azure/msal-react";
+import { InteractionType } from "@azure/msal-browser";
 
 function App() {
+  const authRequest = {
+    scopes: ["User.Read"],
+  };
+  const { instance, inProgress } = useMsal();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MsalAuthenticationTemplate
+      interactionType={InteractionType.Redirect}
+      authenticationRequest={authRequest}
+    >
+      <div className="App">
+        <header className="App-header">
+          <img className="App-logo" alt="currently logged in user" />
+          <p>Logged in as {instance.getActiveAccount()?.username || "none"}</p>
+          <button
+            className="App-link"
+            onClick={() => instance.logoutRedirect()}
+          >
+            Log out
+          </button>
+        </header>
+      </div>
+    </MsalAuthenticationTemplate>
   );
 }
 
