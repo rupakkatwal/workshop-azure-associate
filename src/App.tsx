@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { MsalAuthenticationTemplate, useMsal } from "@azure/msal-react";
 import { InteractionType } from "@azure/msal-browser";
