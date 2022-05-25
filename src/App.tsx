@@ -16,7 +16,6 @@ function App() {
     >
       <div className="App">
         <header className="App-header">
-          <img className="App-logo" alt="currently logged in user" />
           <p>Logged in as {instance.getActiveAccount()?.username || "none"}</p>
           <button
             className="App-link"
